@@ -18,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.046" />
 
-    <Button
-        android:id="@+id/button"
+    <Switch
+        android:id="@+id/flashSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="288dp"
-        android:text="Turn ON the torch ;)"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="300dp"
+        android:text="Turn the flash ON/OF ;)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
