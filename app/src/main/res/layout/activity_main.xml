@@ -22,9 +22,10 @@
         android:id="@+id/flashSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="152dp"
         android:layout_marginTop="300dp"
-        android:text="Turn the flash ON/OF ;)"
+        android:enabled="false"
+        android:text="Flash OFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
