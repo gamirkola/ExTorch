@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (CameraAccessException e) {
                         e.printStackTrace();
                     }
-                    screenshoot();
+                    cache_screenshoot();
                     flashControl.setText("Flash OFF");
                 }else{
                     try {
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void screenshoot(){
+    private void cache_screenshoot(){
         Date date = new Date();
         CharSequence now = android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", date);
         //create file directory in cache app dir
