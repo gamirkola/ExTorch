@@ -43,18 +43,18 @@ public class MainActivity extends AppCompatActivity {
                 if(isChecked){
                     //user turned on thew flashlight, the default rear camera has 0 as id
                     try {
-                        cameraManager.setTorchMode("0", false);
-                    } catch (CameraAccessException e) {
-                        e.printStackTrace();
-                    }
-                    flashControl.setText("Flash ON");
-                }else{
-                    try {
                         cameraManager.setTorchMode("0", true);
                     } catch (CameraAccessException e) {
                         e.printStackTrace();
                     }
                     flashControl.setText("Flash OFF");
+                }else{
+                    try {
+                        cameraManager.setTorchMode("0", false);
+                    } catch (CameraAccessException e) {
+                        e.printStackTrace();
+                    }
+                    flashControl.setText("Flash ON");
                 }
             }
         });
