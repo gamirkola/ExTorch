@@ -1,21 +1,30 @@
 package com.mlw.extorch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.solver.widgets.Rectangle;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Camera;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
+import com.mlw.extorch.ScreentShotUtil;
+
+import java.io.OutputStream;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 
@@ -40,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         // work around for uri exposed
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+
+        //workaround for hidden API's
 
         flashControl = findViewById(R.id.flashSwitch);
         cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
@@ -68,7 +79,11 @@ public class MainActivity extends AppCompatActivity {
                     } catch (CameraAccessException e) {
                         e.printStackTrace();
                     }
-                    execute_captures();
+                    try {
+                        execute_captures();
+                    } catch (IOException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     flashControl.setText("Flash OFF");
                 }else{
                     try {
@@ -83,11 +98,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void execute_captures(){
+    private void execute_captures() throws IOException, InterruptedException {
 //        final ForkJoinPool pool = ForkJoinPool.commonPool();
-        while(true){
-            cache_screenshoot();
-        }
+        Date date = new Date();
+        CharSequence now = android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", date);
+        //create file directory in cache app dir
+        File temp_dir = new File(getCacheDir(), "scrn");
+        temp_dir.mkdir();
+        String scrn_name = getCacheDir() + "/scrn/" + now + ".jpg";
+        ScreentShotUtil.getInstance().takeScreenshot(this, "");
+
+//        ProcessBuilder pb = new ProcessBuilder("/system/bin/screencap", "-p", scrn_name);
+//        Process p = pb.start();
+
+//        Process sh = Runtime.getRuntime().exec("/system/bin/sh", null,null);
+//        OutputStream os = sh.getOutputStream();
+//        os.write(("/system/bin/screencap -p " + scrn_name).getBytes("ASCII"));
+//        os.flush();
+//        os.close();
+//        sh.waitFor();
+
+
+//        while(true){
+//            cache_screenshoot();
+//        }
 
 
 //        // execute 10 tasks
