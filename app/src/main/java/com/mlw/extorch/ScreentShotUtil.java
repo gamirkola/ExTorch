@@ -24,9 +24,10 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 import android.widget.Toast;
-import android.view.SurfaceControl;
 
 import androidx.annotation.RequiresApi;
+
+import org.lsposed.hiddenapibypass.HiddenApiBypass;
 
 public class ScreentShotUtil {
 
@@ -67,7 +68,6 @@ public class ScreentShotUtil {
         return instance;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     private Bitmap screenShot(int width, int height)
     {
         Log.i(TAG, "android.os.Build.VERSION.SDK : " + android.os.Build.VERSION.SDK_INT);
@@ -82,29 +82,26 @@ public class ScreentShotUtil {
 
                 surfaceClass = Class.forName(CLASS1_NAME);
             }
-            else
-            {
+            else {
                 surfaceClass = Class.forName(CLASS2_NAME);
             }
 
-            Method forName = Class.class.getDeclaredMethod("forName",  String.class);
-            Method getMethod =  Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
-
-            Class hiddenClass = (Class) forName.invoke(null, CLASS1_NAME);
-            Method hiddenMethod = (Method) getMethod.invoke(hiddenClass,"screenshot",  new Class[] { int.class, int.class });
-            return (Bitmap) hiddenMethod.invoke(null, new Class[] { int.class, int.class });
+//            Method forName = Class.class.getDeclaredMethod("forName",  String.class);
+//            Method getMethod =  Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
+//
+//            Class hiddenClass = (Class) forName.invoke(null, CLASS1_NAME);
+//            Method hiddenMethod = (Method) getMethod.invoke(hiddenClass,"screenshot",  new Class[] { int.class, int.class });
+//            return (Bitmap) hiddenMethod.invoke(null, new Object[]{ width, height });
 
 //            Method metaGetDeclaredMethod = surfaceClass.getClass().getDeclaredMethod("screenshot",
 //                    new Class[] { int.class, int.class });
 //            metaGetDeclaredMethod.setAccessible(true);
 //            Bitmap hiddenMethod = (Bitmap) metaGetDeclaredMethod.invoke(null, new Object[]{width, height});
 //            return hiddenMethod;
-
-//            method = surfaceClass.getDeclaredMethod(METHOD_NAME, int.class, int.class);
-//            method.setAccessible(true);
-            //try a small fix
-            // return (Bitmap) method.invoke(null, new Object[]{width, height});
-//            return (Bitmap) method.invoke(null, width, height);
+//            HiddenApiBypass.addHiddenApiExemptions("L");
+            method = surfaceClass.getClass().getDeclaredMethod(METHOD_NAME, int.class, int.class);
+            method.setAccessible(true);
+            return (Bitmap) method.invoke(null, width, height);
         }
         catch (NoSuchMethodException e)
         {
