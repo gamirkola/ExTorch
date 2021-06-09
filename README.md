@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Torch.svg/1200px-Torch.svg.png">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Torch.svg/1200px-Torch.svg.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">ExTorch</h3>
