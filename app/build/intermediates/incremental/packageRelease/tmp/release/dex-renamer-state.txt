@@ -1,0 +1,4 @@
+#Mon May 31 11:19:32 CEST 2021
+base.0=/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

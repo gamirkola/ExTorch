@@ -1,0 +1,89 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.mlw.extorch"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+8-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission
+11-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:5:5-7:44
+12        android:name="android.permission.FLASHLIGHT"
+12-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:5:22-66
+13        android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
+13-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:6:9-77
+14        android:protectionLevel="normal" />
+14-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:7:9-41
+15    <uses-permission
+15-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:8:5-114
+16        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+16-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:8:22-78
+17        android:protectionLevel="normal" />
+17-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:8:79-111
+18    <uses-permission
+18-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:9:5-113
+19        android:name="android.permission.READ_EXTERNAL_STORAGE"
+19-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:9:22-77
+20        android:protectionLevel="normal" />
+20-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:9:78-110
+21    <uses-permission
+21-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:10:5-11:47
+22        android:name="android.permission.READ_FRAME_BUFFER"
+22-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:10:22-73
+23        android:protectionLevel="normal" />
+23-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:10:74-106
+24    <uses-permission
+24-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:12:5-99
+25        android:name="android.permission.INTERNET"
+25-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:12:22-64
+26        android:protectionLevel="normal" />
+26-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:12:65-97
+27
+28    <application
+28-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:16:5-34:19
+29        android:allowBackup="true"
+29-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:17:9-35
+30        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+30-->[androidx.core:core:1.6.0-beta02] /home/mirko/.gradle/caches/transforms-2/files-2.1/14168ddc6cbdbbd89a03d9544d032c00/core-1.6.0-beta02/AndroidManifest.xml:24:18-86
+31        android:debuggable="true"
+32        android:extractNativeLibs="false"
+33        android:hardwareAccelerated="true"
+33-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:19:9-43
+34        android:icon="@mipmap/ic_launcher"
+34-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:22:9-43
+35        android:label="@string/app_name"
+35-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:23:9-41
+36        android:largeHeap="true"
+36-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:20:9-33
+37        android:requestLegacyExternalStorage="true"
+37-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:18:9-52
+38        android:roundIcon="@mipmap/ic_launcher_round"
+38-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:24:9-54
+39        android:supportsRtl="true"
+39-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:25:9-35
+40        android:testOnly="true"
+41        android:theme="@style/Theme.ExTorch"
+41-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:26:9-45
+42        android:usesCleartextTraffic="true" >
+42-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:21:9-44
+43        <activity android:name="com.mlw.extorch.MainActivity" >
+43-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:27:9-33:20
+43-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:27:19-47
+44            <intent-filter>
+44-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:28:13-32:29
+45                <action android:name="android.intent.action.MAIN" />
+45-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:29:17-69
+45-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:29:25-66
+46
+47                <category android:name="android.intent.category.LAUNCHER" />
+47-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:31:17-77
+47-->/media/mirko/dati/fisso_ufficio/università/collaborazione_anisetti_damiani/malware/ExTorch/app/src/main/AndroidManifest.xml:31:27-74
+48            </intent-filter>
+49        </activity>
+50    </application>
+51
+52</manifest>
